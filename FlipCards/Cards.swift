@@ -8,18 +8,18 @@
 import Foundation
 
 struct Card {
-    var id: Int
+    var identifier: Int
     var isMatched = false
     var isFaceUp = false
     
-    static var idNumber = 0
+    static var index = 0
     
     static func identifierGen() -> Int {
-        idNumber += 1
-        return idNumber
+        index += 1
+        return index
     }
     
     init() {
-        self.id = Card.identifierGen()
+        self.identifier = Card.identifierGen()
     }
 }
