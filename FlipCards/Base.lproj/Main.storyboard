@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +22,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VvD-xj-IjO"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eLB-ai-b8c"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9md-6Q-XzE">
@@ -33,7 +32,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Mm-fs-3RW"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GM5-81-epD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpY-uj-FIN">
@@ -43,7 +42,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GHe-sq-nzI"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2bc-rV-udY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yva-qA-k1U">
@@ -53,7 +52,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5ql-eh-pqS"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7zQ-Mw-KBI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbB-lR-jY6">
@@ -63,7 +62,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Rj-ND-MO4"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qx3-nt-8XP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggC-mT-mqx">
@@ -73,7 +72,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zmx-ve-bno"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ojX-V7-36a"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anv-Tp-3uX">
@@ -83,7 +82,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wct-v7-zzh"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yn7-7s-QT6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Msf-YV-UM4">
@@ -93,16 +92,9 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WBZ-Mt-ieX"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QEH-wD-E4o"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFK-KZ-qdq">
-                                <rect key="frame" x="146" y="634" width="123" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XfN-NB-vaL">
                                 <rect key="frame" x="283" y="270" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -110,24 +102,64 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jay-WB-NoA"/>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XdI-qc-mlT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEy-04-tca">
+                                <rect key="frame" x="157" y="530" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94568973779999999" green="0.64258342980000005" blue="0.2390607297" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sWr-UQ-tYh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjk-46-gtI">
+                                <rect key="frame" x="27" y="530" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94568973779999999" green="0.64258342980000005" blue="0.2390607297" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lv0-5Z-LHm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eih-it-3eb">
+                                <rect key="frame" x="283" y="530" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94568973779999999" green="0.64258342980000005" blue="0.2390607297" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EUy-gF-Gha"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFK-KZ-qdq">
+                                <rect key="frame" x="94" y="716" width="227" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="flipsCount" destination="BFK-KZ-qdq" id="lhK-UX-XME"/>
-                        <outletCollection property="buttonCollections" destination="yva-qA-k1U" collectionClass="NSMutableArray" id="4oL-E2-y6t"/>
-                        <outletCollection property="buttonCollections" destination="T5R-0H-qV1" collectionClass="NSMutableArray" id="Zx0-69-jUA"/>
-                        <outletCollection property="buttonCollections" destination="kbB-lR-jY6" collectionClass="NSMutableArray" id="H8B-Nz-FvL"/>
-                        <outletCollection property="buttonCollections" destination="dpY-uj-FIN" collectionClass="NSMutableArray" id="yVj-Vo-IY0"/>
-                        <outletCollection property="buttonCollections" destination="9md-6Q-XzE" collectionClass="NSMutableArray" id="M3j-R3-6Xs"/>
-                        <outletCollection property="buttonCollections" destination="XfN-NB-vaL" collectionClass="NSMutableArray" id="wkm-wu-AG5"/>
-                        <outletCollection property="buttonCollections" destination="anv-Tp-3uX" collectionClass="NSMutableArray" id="RqG-im-jfE"/>
-                        <outletCollection property="buttonCollections" destination="ggC-mT-mqx" collectionClass="NSMutableArray" id="uz1-hI-zdR"/>
-                        <outletCollection property="buttonCollections" destination="Msf-YV-UM4" collectionClass="NSMutableArray" id="guy-yG-XAN"/>
+                        <outletCollection property="buttonCollections" destination="T5R-0H-qV1" collectionClass="NSMutableArray" id="YdH-SH-BOG"/>
+                        <outletCollection property="buttonCollections" destination="yva-qA-k1U" collectionClass="NSMutableArray" id="N7k-0M-aNe"/>
+                        <outletCollection property="buttonCollections" destination="kbB-lR-jY6" collectionClass="NSMutableArray" id="8c5-7o-TNh"/>
+                        <outletCollection property="buttonCollections" destination="XfN-NB-vaL" collectionClass="NSMutableArray" id="c9X-nu-Ero"/>
+                        <outletCollection property="buttonCollections" destination="dpY-uj-FIN" collectionClass="NSMutableArray" id="MNP-1X-hEe"/>
+                        <outletCollection property="buttonCollections" destination="anv-Tp-3uX" collectionClass="NSMutableArray" id="aCw-Tg-j5q"/>
+                        <outletCollection property="buttonCollections" destination="ggC-mT-mqx" collectionClass="NSMutableArray" id="mmd-ie-Z5M"/>
+                        <outletCollection property="buttonCollections" destination="Msf-YV-UM4" collectionClass="NSMutableArray" id="wwQ-tF-ili"/>
+                        <outletCollection property="buttonCollections" destination="9md-6Q-XzE" collectionClass="NSMutableArray" id="ErH-pq-SkX"/>
+                        <outletCollection property="buttonCollections" destination="eih-it-3eb" collectionClass="NSMutableArray" id="EDu-HB-ihO"/>
+                        <outletCollection property="buttonCollections" destination="gEy-04-tca" collectionClass="NSMutableArray" id="cuR-3S-385"/>
+                        <outletCollection property="buttonCollections" destination="mjk-46-gtI" collectionClass="NSMutableArray" id="SBp-fI-mjn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -135,9 +167,4 @@
             <point key="canvasLocation" x="28.985507246376812" y="83.705357142857139"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

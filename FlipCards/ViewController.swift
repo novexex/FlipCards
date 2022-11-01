@@ -13,7 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet var buttonCollections: [UIButton]!
     @IBOutlet weak var flipsCount: UILabel!
     
-    lazy var game = ConcentrationGame(numsOfPairsOfCards: buttonCollections.count / 2)
+    lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
+    
+    var emoji: Set<String> = ["❤️", "🧡", "💛", "💚", "💙", "💜"]
     
     var flips = 0 {
         didSet {
@@ -37,7 +39,8 @@ class ViewController: UIViewController {
 //    }
 
     @IBAction func buttonsActions(_ sender: UIButton) {
-        flip
+        flips += 1
+        flipButton(emoji: "🧩", button: buttonCollections[0])
     }
     
 }
