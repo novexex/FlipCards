@@ -61,6 +61,9 @@
                                 <color key="backgroundColor" red="0.94568973779999999" green="0.64258342980000005" blue="0.2390607297" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleLabel?.font" value=".systemFont(ofSize: 50)"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qx3-nt-8XP"/>
                                 </connections>
@@ -135,8 +138,8 @@
                                     <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EUy-gF-Gha"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFK-KZ-qdq">
-                                <rect key="frame" x="94" y="716" width="227" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFK-KZ-qdq">
+                                <rect key="frame" x="29" y="669" width="356" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>

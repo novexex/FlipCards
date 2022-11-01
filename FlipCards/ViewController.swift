@@ -32,6 +32,14 @@ class ViewController: UIViewController {
         }
     }
     
+    func gameOver() {
+        for i in buttonCollections.indices {
+            buttonCollections[i].setTitle("", for: .normal)
+        }
+        flipsCount.frame.origin = CGPoint(x: 29, y: 350)
+        flipsCount.text = "Game over!\n Total flips: \(flips)"
+    }
+    
     func updateView() {
         var allMatches = 0
         for index in buttonCollections.indices {
@@ -42,8 +50,8 @@ class ViewController: UIViewController {
                 }
             }
             if game.cards[index].isFaceUp {
-                //buttonCollections[index].
                 buttonCollections[index].setTitle(emojiIdentifier(for: game.cards[index]), for: .normal)
+                buttonCollections[index].titleLabel?.font = .systemFont(ofSize: 50)
                 buttonCollections[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
 //                    if game.gameOver {
 //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -53,6 +61,7 @@ class ViewController: UIViewController {
 //                }
             } else {
                 buttonCollections[index].setTitle("", for: .normal)
+                buttonCollections[index].titleLabel?.font = .systemFont(ofSize: 50)
                 buttonCollections[index].backgroundColor = game.cards[index].isMatched ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) :  #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1)
             }
         }
@@ -68,6 +77,10 @@ class ViewController: UIViewController {
         updateView()
         if !game.gameOver {
             flips += 1
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.gameOver()
+            }
         }
     }
     
