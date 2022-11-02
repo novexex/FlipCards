@@ -17,8 +17,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tryAgainButton.isHidden = true
+        for index in buttonCollections.indices {
+            buttonCollections[index].setTitle(emojiIdentifier(for: game.cards[index]), for: .normal)
+            buttonCollections[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            for index in self.buttonCollections.indices {
+                self.buttonCollections[index].setTitle("", for: .normal)
+                self.buttonCollections[index].backgroundColor = #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1)
+            }
+        }
+        self.view.isUserInteractionEnabled = true
     }
-    
+
     lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
     var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
     var emojiDict = [Int:String]()
@@ -49,17 +62,21 @@ class ViewController: UIViewController {
     
     func hideCards(index: Int, matchingIndex: Int) {
         if game.cards[index].isMatched && game.cards[matchingIndex].isMatched {
+            self.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.flipCard(index: index)
                 self.flipCard(index: matchingIndex)
             }
+            self.view.isUserInteractionEnabled = true
             game.hideAfterMatchIndex = nil
             game.hideAfterMatchIndex2 = nil
         } else {
+            self.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.flipCard(index: index)
                 self.flipCard(index: matchingIndex)
             }
+            self.view.isUserInteractionEnabled = true
             game.hideAfterUnmatchIndex = nil
             game.hideAfterUnmatchIndex2 = nil
         }
@@ -113,9 +130,11 @@ class ViewController: UIViewController {
         if !game.gameOver {
             flips += 1
         } else {
+            self.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.gameOver()
             }
+            self.view.isUserInteractionEnabled = true
         }
     }
     
