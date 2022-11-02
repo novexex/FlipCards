@@ -47,6 +47,37 @@ class ViewController: UIViewController {
         tryAgainButton.frame.origin  = CGPoint(x: 140, y: 475)
     }
     
+    func hideCards(index: Int, matchingIndex: Int) {
+        if game.cards[index].isMatched && game.cards[matchingIndex].isMatched {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.flipCard(index: index)
+                self.flipCard(index: matchingIndex)
+            }
+            game.hideAfterMatchIndex = nil
+            game.hideAfterMatchIndex2 = nil
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.flipCard(index: index)
+                self.flipCard(index: matchingIndex)
+            }
+            game.hideAfterUnmatchIndex = nil
+            game.hideAfterUnmatchIndex2 = nil
+        }
+    }
+    
+    func flipCard(index: Int) {
+        if game.cards[index].isMatched {
+            buttonCollections[index].setTitle("", for: .normal)
+        } else {
+            if buttonCollections[index].currentTitle == "" {
+                buttonCollections[index].setTitle(emojiIdentifier(for: game.cards[index]), for: .normal)
+            } else {
+                buttonCollections[index].setTitle("", for: .normal)
+            }
+            buttonCollections[index].backgroundColor = buttonCollections[index].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) ? #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        }
+    }
+    
     func updateView() {
         var allMatches = 0
         for index in buttonCollections.indices {
@@ -73,6 +104,12 @@ class ViewController: UIViewController {
         guard let buttonIndex = buttonCollections.firstIndex(of: sender) else { return }
         game.chooseCard(at: buttonIndex)
         updateView()
+        if let _ = game.hideAfterMatchIndex, let _ = game.hideAfterMatchIndex2 {
+            hideCards(index: game.hideAfterMatchIndex!, matchingIndex: game.hideAfterMatchIndex2!)
+        }
+        if let _ = game.hideAfterUnmatchIndex, let _ = game.hideAfterUnmatchIndex2 {
+            hideCards(index: game.hideAfterUnmatchIndex!, matchingIndex: game.hideAfterUnmatchIndex2!)
+        }
         if !game.gameOver {
             flips += 1
         } else {
@@ -95,7 +132,6 @@ class ViewController: UIViewController {
         flipsCount.frame.origin = CGPoint(x: 29, y: 669)
         flipsCount.text = "Flips: \(flips)"
         tryAgainButton.isHidden = true
-        
     }
 }
 
