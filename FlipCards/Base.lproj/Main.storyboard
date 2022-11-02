@@ -145,12 +145,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wo-W1-fjE">
+                                <rect key="frame" x="139" y="785" width="140" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91430026289999999" green="0.61502140760000001" blue="0.22337576749999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Try again">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="25"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tryAgainPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="fWk-rg-yix"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="flipsCount" destination="BFK-KZ-qdq" id="lhK-UX-XME"/>
+                        <outlet property="tryAgainButton" destination="0wo-W1-fjE" id="Cu3-ie-l0T"/>
                         <outletCollection property="buttonCollections" destination="T5R-0H-qV1" collectionClass="NSMutableArray" id="YdH-SH-BOG"/>
                         <outletCollection property="buttonCollections" destination="yva-qA-k1U" collectionClass="NSMutableArray" id="N7k-0M-aNe"/>
                         <outletCollection property="buttonCollections" destination="kbB-lR-jY6" collectionClass="NSMutableArray" id="8c5-7o-TNh"/>

@@ -10,12 +10,17 @@ import UIKit
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet var buttonCollections: [UIButton]!
     @IBOutlet weak var flipsCount: UILabel!
     
-    lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tryAgainButton.isHidden = true
+    }
     
-    var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎"]
+    lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
+    var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
     var emojiDict = [Int:String]()
     
     func emojiIdentifier(for card: Card) -> String {
@@ -38,6 +43,8 @@ class ViewController: UIViewController {
         }
         flipsCount.frame.origin = CGPoint(x: 29, y: 350)
         flipsCount.text = "Game over!\n Total flips: \(flips)"
+        tryAgainButton.isHidden = false
+        tryAgainButton.frame.origin  = CGPoint(x: 140, y: 475)
     }
     
     func updateView() {
@@ -51,14 +58,8 @@ class ViewController: UIViewController {
             }
             if game.cards[index].isFaceUp {
                 buttonCollections[index].setTitle(emojiIdentifier(for: game.cards[index]), for: .normal)
-                buttonCollections[index].titleLabel?.font = .systemFont(ofSize: 50)
+                buttonCollections[index].titleLabel?.font.withSize(100)
                 buttonCollections[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-//                    if game.gameOver {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                        self.buttonCollections[index].setTitle("", for: .normal)
-//                        self.buttonCollections[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-//                    }
-//                }
             } else {
                 buttonCollections[index].setTitle("", for: .normal)
                 buttonCollections[index].titleLabel?.font = .systemFont(ofSize: 50)
@@ -70,9 +71,6 @@ class ViewController: UIViewController {
     @IBAction func buttonsActions(_ sender: UIButton) {
         guard !game.gameOver else { return }
         guard let buttonIndex = buttonCollections.firstIndex(of: sender) else { return }
-//        for i in buttonCollections.indices {
-//            buttonCollections[i].
-//        }
         game.chooseCard(at: buttonIndex)
         updateView()
         if !game.gameOver {
@@ -84,5 +82,20 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func tryAgainPressed() {
+        for i in buttonCollections.indices {
+            buttonCollections[i].backgroundColor = #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1)
+        }
+        flips = 0
+        game.gameOver = false
+        emojiCollection.removeAll()
+        emojiCollection += ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
+        emojiDict.removeAll()
+        game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
+        flipsCount.frame.origin = CGPoint(x: 29, y: 669)
+        flipsCount.text = "Flips: \(flips)"
+        tryAgainButton.isHidden = true
+        
+    }
 }
 
