@@ -61,9 +61,6 @@
                                 <color key="backgroundColor" red="0.94568973779999999" green="0.64258342980000005" blue="0.2390607297" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="titleLabel?.font" value=".systemFont(ofSize: 50)"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonsActions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qx3-nt-8XP"/>
                                 </connections>
