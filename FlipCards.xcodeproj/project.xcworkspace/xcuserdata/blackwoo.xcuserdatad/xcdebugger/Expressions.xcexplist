@@ -6,8 +6,19 @@
          contextName = "ViewController.tryAgainPressed():ViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "ViewController.flipCard(index:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "buttonCollections[index].currentTitle">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.buttonsActions(_:):ViewController.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "buttonCollections[buttonIndex].currentTitle">
+            </PersistentString>
             <PersistentString
                value = "game.cards[buttonIndex].identifier">
             </PersistentString>

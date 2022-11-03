@@ -9,7 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
     @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet var buttonCollections: [UIButton]!
     @IBOutlet weak var flipsCount: UILabel!
@@ -23,6 +22,11 @@ class ViewController: UIViewController {
     lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
     var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
     var emojiDict = [Int:String]()
+    var flips = 0 {
+        didSet {
+            flipsCount.text = "Flips: \(flips)"
+        }
+    }
     
     func showCards() {
         self.view.isUserInteractionEnabled = false
@@ -51,12 +55,6 @@ class ViewController: UIViewController {
         return emojiDict[card.identifier]!
     }
 
-    var flips = 0 {
-        didSet {
-            flipsCount.text = "Flips: \(flips)"
-        }
-    }
-    
     func gameOver() {
         for index in buttonCollections.indices {
             let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
@@ -70,39 +68,51 @@ class ViewController: UIViewController {
     
     func hideCards(index: Int, matchingIndex: Int) {
         if game.cards[index].isMatched && game.cards[matchingIndex].isMatched {
-            self.view.isUserInteractionEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.flipCard(index: index)
-                self.flipCard(index: matchingIndex)
-                self.view.isUserInteractionEnabled = true
-            }
+            freezedDoubleFlip(index: index, matchingIndex: matchingIndex)
             game.hideAfterMatchIndex = nil
             game.hideAfterMatchIndex2 = nil
         } else {
-            self.view.isUserInteractionEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.flipCard(index: index)
-                self.flipCard(index: matchingIndex)
-                self.view.isUserInteractionEnabled = true
-            }
+            freezedDoubleFlip(index: index, matchingIndex: matchingIndex)
             game.hideAfterUnmatchIndex = nil
             game.hideAfterUnmatchIndex2 = nil
         }
     }
     
-    func flipCard(index: Int) {
+    func freezedDoubleFlip(index: Int, matchingIndex: Int) {
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.flipCard(index: index, mode: false)
+            self.flipCard(index: matchingIndex, mode: false)
+            self.view.isUserInteractionEnabled = true
+        }
+    }
+    
+    func flipCard(index: Int, mode: Bool) {
         if game.cards[index].isMatched {
             let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
             buttonCollections[index].setAttributedTitle(str, for: .normal)
         } else {
-            if buttonCollections[index].currentTitle == "" {
-                let str = NSAttributedString(string: emojiIdentifier(for: game.cards[index]), attributes: [.font : UIFont.systemFont(ofSize: 50)])
-                buttonCollections[index].setAttributedTitle(str, for: .normal)
-            } else {
-                let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
-                self.buttonCollections[index].setAttributedTitle(str, for: .normal)
+            switch mode {
+                case true: //flip by background
+                    if buttonCollections[index].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) {
+                        buttonCollections[index].backgroundColor = #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1)
+                        let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
+                        buttonCollections[index].setAttributedTitle(str, for: .normal)
+                    } else {
+                        buttonCollections[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                        let str = NSAttributedString(string: emojiIdentifier(for: game.cards[index]), attributes: [.font : UIFont.systemFont(ofSize: 50)])
+                        buttonCollections[index].setAttributedTitle(str, for: .normal)
+                    }
+                case false: //flip by title
+                    if buttonCollections[index].currentTitle == "" {
+                        let str = NSAttributedString(string: emojiIdentifier(for: game.cards[index]), attributes: [.font : UIFont.systemFont(ofSize: 50)])
+                        buttonCollections[index].setAttributedTitle(str, for: .normal)
+                    } else {
+                        let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
+                        self.buttonCollections[index].setAttributedTitle(str, for: .normal)
+                    }
+                    buttonCollections[index].backgroundColor = buttonCollections[index].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) ? #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
             }
-            buttonCollections[index].backgroundColor = buttonCollections[index].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) ? #colorLiteral(red: 0.999368608, green: 0.6251345277, blue: 0.05882481486, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         }
     }
     
@@ -127,28 +137,34 @@ class ViewController: UIViewController {
         }
     }
 
+    func checker(index: Int?, matchingIndex: Int?) {
+        if let _ = index, let _ = matchingIndex {
+            hideCards(index: index!, matchingIndex: matchingIndex!)
+        }
+    }
+    
     @IBAction func buttonsActions(_ sender: UIButton) {
-        guard !game.gameOver else { return }
         guard let buttonIndex = buttonCollections.firstIndex(of: sender) else { return }
         guard !game.cards[buttonIndex].isMatched else { return }
+        flips += 1
+        if let prevButton = game.prevButtonIndex {
+            if prevButton == buttonIndex {
+                flipCard(index: buttonIndex, mode: true)
+                return
+            }
+        }
         game.chooseCard(at: buttonIndex)
         updateView()
-        if let _ = game.hideAfterMatchIndex, let _ = game.hideAfterMatchIndex2 {
-            hideCards(index: game.hideAfterMatchIndex!, matchingIndex: game.hideAfterMatchIndex2!)
-        }
-        if let _ = game.hideAfterUnmatchIndex, let _ = game.hideAfterUnmatchIndex2 {
-            hideCards(index: game.hideAfterUnmatchIndex!, matchingIndex: game.hideAfterUnmatchIndex2!)
-        }
-        //if !game.gameOver && game.cards[buttonIndex].identifier != buttonCollections.firstIndex(of: sender) {
-        if !game.gameOver && game.cards[buttonIndex].identifier != buttonCollections.firstIndex(of: sender) {
-            flips += 1
-        } else if game.gameOver {
+        checker(index: game.hideAfterMatchIndex, matchingIndex: game.hideAfterMatchIndex2)
+        checker(index: game.hideAfterUnmatchIndex, matchingIndex: game.hideAfterUnmatchIndex2)
+        if game.gameOver {
             self.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.gameOver()
                 self.view.isUserInteractionEnabled = true
             }
         }
+        game.prevButtonIndex = buttonIndex
     }
     
     @IBAction func tryAgainPressed() {
@@ -157,7 +173,6 @@ class ViewController: UIViewController {
         emojiCollection.removeAll()
         emojiCollection += ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
         emojiDict.removeAll()
-        
         game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
         flipsCount.frame.origin = CGPoint(x: 29, y: 669)
         flipsCount.text = "Flips: \(flips)"
