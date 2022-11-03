@@ -9,13 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet var buttonCollections: [UIButton]!
     @IBOutlet weak var flipsCount: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tryAgainButton.isHidden = true
         showCards()
     }
 
@@ -54,19 +52,8 @@ class ViewController: UIViewController {
         }
         return emojiDict[card.identifier]!
     }
-
-    func gameOver() {
-        for index in buttonCollections.indices {
-            let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
-            self.buttonCollections[index].setAttributedTitle(str, for: .normal)
-        }
-        flipsCount.frame.origin = CGPoint(x: 29, y: 350)
-        flipsCount.text = "Game over!\n Total flips: \(flips)"
-        tryAgainButton.isHidden = false
-        tryAgainButton.frame.origin  = CGPoint(x: 140, y: 475)
-    }
     
-    func hideCards(index: Int, matchingIndex: Int) {
+    func hideBothCards(index: Int, matchingIndex: Int) {
         if game.cards[index].isMatched && game.cards[matchingIndex].isMatched {
             freezedDoubleFlip(index: index, matchingIndex: matchingIndex)
             game.hideAfterMatchIndex = nil
@@ -139,8 +126,13 @@ class ViewController: UIViewController {
 
     func checker(index: Int?, matchingIndex: Int?) {
         if let _ = index, let _ = matchingIndex {
-            hideCards(index: index!, matchingIndex: matchingIndex!)
+            hideBothCards(index: index!, matchingIndex: matchingIndex!)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVS = segue.destination as? ResultViewController else { return }
+        destinationVS.flips = flips
     }
     
     @IBAction func buttonsActions(_ sender: UIButton) {
@@ -150,6 +142,7 @@ class ViewController: UIViewController {
         if let prevButton = game.prevButtonIndex {
             if prevButton == buttonIndex {
                 flipCard(index: buttonIndex, mode: true)
+                game.indexOfFaceUpCard = nil
                 return
             }
         }
@@ -160,14 +153,14 @@ class ViewController: UIViewController {
         if game.gameOver {
             self.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.gameOver()
+                self.performSegue(withIdentifier: "resultSegue", sender: nil)
                 self.view.isUserInteractionEnabled = true
             }
         }
         game.prevButtonIndex = buttonIndex
     }
     
-    @IBAction func tryAgainPressed() {
+    @IBAction func unwindSegueToFirstVC(segue: UIStoryboardSegue) {
         flips = 0
         game.gameOver = false
         emojiCollection.removeAll()
@@ -176,7 +169,6 @@ class ViewController: UIViewController {
         game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
         flipsCount.frame.origin = CGPoint(x: 29, y: 669)
         flipsCount.text = "Flips: \(flips)"
-        tryAgainButton.isHidden = true
         showCards()
     }
 }
