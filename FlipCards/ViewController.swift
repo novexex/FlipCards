@@ -9,24 +9,28 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var buttonCollections: [UIButton]!
-    @IBOutlet weak var flipsCount: UILabel!
+    @IBOutlet private var buttonCollections: [UIButton]!
+    @IBOutlet private weak var flipsCount: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showCards()
     }
 
-    lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
-    var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
-    var emojiDict = [Int:String]()
-    var flips = 0 {
+    private lazy var game = ConcentrationGame(numsOfPairsOfCards: numberOfPairsOfCards)
+    
+    var numberOfPairsOfCards : Int {
+        return (buttonCollections.count + 1) / 2
+    }
+    private var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
+    private var emojiDict = [Int:String]()
+    private(set) var flips = 0 {
         didSet {
             flipsCount.text = "Flips: \(flips)"
         }
     }
-    
-    func showCards() {
+
+    private func showCards() {
         self.view.isUserInteractionEnabled = false
         flipsCount.isHidden = true
         for index in buttonCollections.indices {
@@ -44,16 +48,16 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    func emojiIdentifier(for card: Card) -> String {
-        if emojiDict[card.identifier] == nil { //если в словаре нет нужного нам элемента
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiCollection.count))) //мы генерим рандомный индекс потолок у которого кол-во элементов в массиве
-            emojiDict[card.identifier] = emojiCollection.remove(at: randomIndex) //вытаскиваем из массива рандомное эмодзи и засовываем в словарь
+
+    private func emojiIdentifier(for card: Card) -> String {
+        if emojiDict[card.identifier] == nil {
+            let randomIndex = Int(arc4random_uniform(UInt32(emojiCollection.count)))
+            emojiDict[card.identifier] = emojiCollection.remove(at: randomIndex)
         }
         return emojiDict[card.identifier]!
     }
-    
-    func hideBothCards(index: Int, matchingIndex: Int) {
+
+    private func hideBothCards(index: Int, matchingIndex: Int) {
         if game.cards[index].isMatched && game.cards[matchingIndex].isMatched {
             freezedDoubleFlip(index: index, matchingIndex: matchingIndex)
             game.hideAfterMatchIndex = nil
@@ -65,7 +69,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func freezedDoubleFlip(index: Int, matchingIndex: Int) {
+    private func freezedDoubleFlip(index: Int, matchingIndex: Int) {
         self.view.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.flipCard(index: index, mode: false)
@@ -73,8 +77,8 @@ class ViewController: UIViewController {
             self.view.isUserInteractionEnabled = true
         }
     }
-    
-    func flipCard(index: Int, mode: Bool) {
+
+    private func flipCard(index: Int, mode: Bool) {
         if game.cards[index].isMatched {
             let str = NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 50)])
             buttonCollections[index].setAttributedTitle(str, for: .normal)
@@ -102,8 +106,8 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    func updateView() {
+
+    private func updateView() {
         var allMatches = 0
         for index in buttonCollections.indices {
             if game.cards[index].isMatched {
@@ -124,18 +128,18 @@ class ViewController: UIViewController {
         }
     }
 
-    func checker(index: Int?, matchingIndex: Int?) {
+    private func checker(index: Int?, matchingIndex: Int?) {
         if let _ = index, let _ = matchingIndex {
             hideBothCards(index: index!, matchingIndex: matchingIndex!)
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVS = segue.destination as? ResultViewController else { return }
         destinationVS.flips = flips
     }
-    
-    @IBAction func buttonsActions(_ sender: UIButton) {
+
+    @IBAction private func buttonsActions(_ sender: UIButton) {
         guard let buttonIndex = buttonCollections.firstIndex(of: sender) else { return }
         guard !game.cards[buttonIndex].isMatched else { return }
         flips += 1
@@ -159,8 +163,8 @@ class ViewController: UIViewController {
         }
         game.prevButtonIndex = buttonIndex
     }
-    
-    @IBAction func unwindSegueToFirstVC(segue: UIStoryboardSegue) {
+
+    @IBAction private func unwindSegueToFirstVC(segue: UIStoryboardSegue) {
         flips = 0
         game.gameOver = false
         emojiCollection.removeAll()

@@ -12,9 +12,9 @@ struct Card {
     var isMatched = false
     var isFaceUp = false
     
-    static var index = 0
+    private static var index = 0
     
-    static func identifierGen() -> Int {
+    private static func identifierGen() -> Int {
         index += 1
         return index
     }
