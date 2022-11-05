@@ -17,13 +17,10 @@ class ViewController: UIViewController {
         showCards()
     }
 
-    private lazy var game = ConcentrationGame(numsOfPairsOfCards: numberOfPairsOfCards)
-    
-    var numberOfPairsOfCards : Int {
-        return (buttonCollections.count + 1) / 2
-    }
+    private lazy var game = ConcentrationGame(numsOfPairsOfCards: (buttonCollections.count + 1) / 2)
+
     private var emojiCollection = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💗"]
-    private var emojiDict = [Int:String]()
+    private var emojiDict = [Card:String]()
     private(set) var flips = 0 {
         didSet {
             flipsCount.text = "Flips: \(flips)"
@@ -50,11 +47,10 @@ class ViewController: UIViewController {
     }
 
     private func emojiIdentifier(for card: Card) -> String {
-        if emojiDict[card.identifier] == nil {
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiCollection.count)))
-            emojiDict[card.identifier] = emojiCollection.remove(at: randomIndex)
+        if emojiDict[card] == nil {
+            emojiDict[card] = emojiCollection.remove(at: emojiCollection.count.randomNumber)
         }
-        return emojiDict[card.identifier]!
+        return emojiDict[card]!
     }
 
     private func hideBothCards(index: Int, matchingIndex: Int) {
@@ -177,3 +173,9 @@ class ViewController: UIViewController {
     }
 }
 
+extension Int {
+    var randomNumber: Int {
+        assert(self > 0, "Int.randomNumber: self > 0")
+        return Int(arc4random_uniform(UInt32(self)))
+    }
+}
